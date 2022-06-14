@@ -1,12 +1,14 @@
 import React from "react"
+import Footer from "../components/footer"
 import Navbar from "../components/navbar"
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div className="text-gray-700 flex flex-col h-screen">
+  return <div>
     <Navbar />
-    <main className="flex-grow">
-      {children}
-    </main>
+    <div className="flex flex-col h-screen justify-between">
+      <main className="flex-grow">{children}</main>
+    </div>
+    <Footer />
   </div>
 }
 
