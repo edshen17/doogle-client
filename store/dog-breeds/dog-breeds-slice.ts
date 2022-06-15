@@ -1,64 +1,19 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { createStoreSlice, fetchData } from '../common'
 import { RootState } from '../store'
 
-const DOG_BREEDS_URL = 'https://dog.ceo/api/breeds/list/all'
+const moduleData = { name: 'dogBreeds', endpoint: '/list/all' }
 
-export enum API_STATUS {
-  IDLE = 'idle',
-  LOADING = 'loading',
-  SUCCEEDED = 'succeeded',
-  FAILED = 'failed',
-}
+export const fetchDogBreeds = fetchData(moduleData);
 
-interface DogBreedsState {
-  dogBreeds: { [key: string]: string[] },
-  status: API_STATUS,
-  error: string | undefined
-}
-
-const initialState: DogBreedsState = {
-  dogBreeds: {},
-  status: API_STATUS.IDLE,
-  error: undefined,
-}
-
-export const fetchDogBreeds = createAsyncThunk('dogBreeds/fetchDogBreeds', async () => {
-  try {
-    const response = await axios.get(DOG_BREEDS_URL)
-    return response.data.message;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      return err.message
-    }
+export const dogBreedsSlice = createStoreSlice({ ...moduleData, reducers: {}, dataProcessor(state, action) {
+  const breedNames = []
+  for (const breedName in action.payload) {
+    breedNames.push(`${breedName[0].toUpperCase()}${breedName.slice(1)}`);
   }
-})
+  state.data = breedNames;
+}, });
 
-export const dogBreedsSlice = createSlice({
-  name: 'dogBreeds',
-  initialState,
-  reducers: {
-    setBreeds: (state, action: PayloadAction<{ message: { [key: string]: string[] }, status: string }>) => {
-      state.dogBreeds = action.payload.message
-    }
-  },
-  extraReducers(builder) {
-    builder
-    .addCase(fetchDogBreeds.pending, (state) => {
-        state.status = API_STATUS.LOADING
-    })
-    .addCase(fetchDogBreeds.fulfilled, (state, action) => {
-        state.status = API_STATUS.SUCCEEDED
-        state.dogBreeds = action.payload
-    })
-    .addCase(fetchDogBreeds.rejected, (state, action) => {
-        state.status = API_STATUS.FAILED
-        state.error = action.error.message
-    })
-  }
-})
-
-export const getAllDogBreeds = (state: RootState) => state.dogBreeds.dogBreeds
+export const getAllDogBreeds = (state: RootState) => state.dogBreeds.data
 export const getDogBreedsStatus = (state: RootState) => state.dogBreeds.status
 export const getDogBreedsError = (state: RootState) => state.dogBreeds.error
 

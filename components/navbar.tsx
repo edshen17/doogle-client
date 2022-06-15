@@ -46,7 +46,7 @@ const Navbar = () => {
 
   return <header className="shadow-md sm:flex sm:justify-between sm:px-4 sm:py-4 sm:items-center">
     <div className="flex items-center justify-between px-4 py-5 sm:p-0">
-      <div className="flex items-center text-4xl font-semibold mx-2">
+      <div className="flex items-center text-4xl mx-2">
         <Link href="/">
           <a><Logo /></a>
         </Link>
