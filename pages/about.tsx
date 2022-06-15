@@ -10,7 +10,7 @@ const About: NextPage = () => {
         <h1 className="font-bold text-4xl md:text-7xl text-center md:text-left mb-8 md:mb-10">
           I am not the <span className="text-blue-500">Obi-wan</span> you are looking for
 				</h1>
-        <p className="mb-8 leading-relaxed">I am not a legendary Jedi Master who served on the Jedi High Council during the final years of the Republic Era. I also did not serve in the Grand Army of the Republic that fought against the Separatist Droid Army during the Clone Wars.</p>
+        <p className="mb-8 leading-relaxed">Hello there. I am not a legendary Jedi Master who served on the Jedi High Council during the final years of the Republic Era. I also did not serve in the Grand Army of the Republic that fought against the Separatist Droid Army during the Clone Wars.</p>
       </div>
     </div>
   </div>

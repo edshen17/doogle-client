@@ -6,24 +6,29 @@ import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleIcon = () => {
-    setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const closeMenu = () => {
+    setIsOpen(false)
   }
 
   const openMailer = () => {
     window.location.href = 'mailto:christian@tripleaxle.com?subject=Hi Christian!'
+    closeMenu()
   }
 
   const routerLinks = [
     {
       title: 'About',
       path: '/about',
-      action: toggleIcon,
+      action: closeMenu,
     },
     {
       title: 'Dogs',
       path: '/dogs',
-      action: toggleIcon,
+      action: closeMenu,
     },
     {
       title: 'Contact Us',
@@ -46,8 +51,8 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="sm:hidden">
-        <button type="button" className="block" onClick={toggleIcon} >
-          <FontAwesomeIcon icon={isOpen ? faX : faBars } className="text-xl px-2" />
+        <button type="button" className="block" onClick={ toggleMenu } >
+          <FontAwesomeIcon icon={ isOpen ? faX : faBars } className="text-xl px-2" />
         </button>
       </div>
     </div>
