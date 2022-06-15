@@ -14,14 +14,14 @@ const Dog: NextPage = () => {
   const dogBreedImagesStatus = useSelector(getDogBreedImagesStatus)
   const dogBreedImagesError = useSelector(getDogBreedImagesError) // possible future extension: could display something if there was an error
 
-  console.log(dogBreedImages)
-
   useEffect(() => {
     if(!router.isReady) return;
     if (dogBreedImagesStatus == API_STATUS.IDLE) {
-     store.dispatch(fetchDogBreedImages(name as string))
+     store.dispatch(fetchDogBreedImages(`/breed/${name}/images`))
     }
   }, [router, dogBreedImagesStatus, dispatch])
+
+  
   return <h1>{ dogBreedImagesStatus }</h1>
 }
 

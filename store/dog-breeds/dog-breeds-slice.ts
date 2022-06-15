@@ -1,9 +1,9 @@
 import { createStoreSlice, fetchData } from '../common'
 import { RootState } from '../store'
 
-const moduleData = { name: 'dogBreeds', endpoint: '/breeds/list/all' }
+const moduleData = { name: 'dogBreeds' }
 
-export const fetchDogBreeds = fetchData(moduleData);
+export const fetchDogBreeds = fetchData(moduleData.name)
 
 export const dogBreedsSlice = createStoreSlice({ ...moduleData, reducers: {}, dataProcessor(state, action) {
   const breedNames = []

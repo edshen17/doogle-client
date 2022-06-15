@@ -1,11 +1,9 @@
 import { createStoreSlice, fetchData } from '../common'
 import { RootState } from '../store'
 
-const moduleData = { name: 'dogBreedImages', endpoint: '' }
+const moduleData = { name: 'dogBreedImages' }
 
-export const fetchDogBreedImages = (breedName: string) => {
-  return fetchData({ name: 'dogBreedImages', endpoint: `/breed/${breedName}/images` })()
-}
+export const fetchDogBreedImages = fetchData(moduleData.name)
 
 export const dogBreedImagesSlice = createStoreSlice({ ...moduleData, reducers: {} });
 

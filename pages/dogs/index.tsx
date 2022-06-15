@@ -6,21 +6,23 @@ import Logo from "../../components/logo";
 import { API_STATUS } from "../../store/common";
 import { fetchDogBreeds, getAllDogBreeds, getDogBreedsError, getDogBreedsStatus } from "../../store/dog-breeds/dog-breeds-slice";
 import { store } from "../../store/store";
+import { useRouter } from "next/router"
 
 
 const Dogs: NextPage = () => {
+  const router = useRouter()
   const dispatch = useDispatch();
   const dogBreeds = useSelector(getAllDogBreeds)
   const dogBreedsStatus = useSelector(getDogBreedsStatus)
   const dogBreedsError = useSelector(getDogBreedsError) // possible future extension: could display something if there was an error
 
-  const onChange = (e: SyntheticEvent<Element, Event>, value: any) => {
-    console.log(value)
+  const onChange = (e: SyntheticEvent<Element, Event>, breedName: string) => {
+    router.push(`/dogs/${breedName.toLowerCase()}`)
   }
 
   useEffect(() => {
     if (dogBreedsStatus == API_STATUS.IDLE) {
-     store.dispatch(fetchDogBreeds())
+      store.dispatch(fetchDogBreeds(`/breeds/list/all`))
     }
   }, [dogBreedsStatus, dispatch])
 

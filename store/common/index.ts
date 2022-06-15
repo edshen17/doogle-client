@@ -11,7 +11,7 @@ export enum API_STATUS {
 }
 
 export interface StoreState {
-  data: any[],
+  data: any,
   status: API_STATUS,
   error: string | undefined
 }
@@ -22,11 +22,8 @@ const initialState: StoreState = {
   error: undefined,
 }
 
-type FetchDataProps = { name: string, endpoint?: string }
-
-export const fetchData = (props: FetchDataProps) => {
-  const { name, endpoint } = props;
-  return createAsyncThunk(`${name}/fetchData`, async () => {
+export const fetchData = (name: string) => {
+  return createAsyncThunk(`${name}/fetchData`, async (endpoint: string) => {
     try {
       const response = await axios.get(`${BASE_API_URL}${endpoint}`)
       return response.data.message;
@@ -38,7 +35,7 @@ export const fetchData = (props: FetchDataProps) => {
   })
 }
 
-export const createStoreSlice = (props: FetchDataProps & { reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<string[]>) => void }) => {
+export const createStoreSlice = (props: { name: string } & { reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
   const { name, reducers, dataProcessor } = props;
   return createSlice({
     name,
@@ -46,10 +43,10 @@ export const createStoreSlice = (props: FetchDataProps & { reducers: any, dataPr
     reducers,
     extraReducers(builder) {
       builder
-      .addCase(fetchData({ name }).pending, (state) => {
+      .addCase(fetchData(name).pending, (state) => {
           state.status = API_STATUS.LOADING
       })
-      .addCase(fetchData({ name }).fulfilled, (state, action) => {
+      .addCase(fetchData(name).fulfilled, (state, action) => {
           state.status = API_STATUS.SUCCEEDED
           if (!dataProcessor) {
             state.data = action.payload
@@ -57,7 +54,7 @@ export const createStoreSlice = (props: FetchDataProps & { reducers: any, dataPr
             dataProcessor(state, action);
           }
       })
-      .addCase(fetchData({ name }).rejected, (state, action) => {
+      .addCase(fetchData(name).rejected, (state, action) => {
           state.status = API_STATUS.FAILED
           state.error = action.error.message
       })
