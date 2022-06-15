@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
+import Logo from "./logo";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +46,9 @@ const Navbar = () => {
 
   return <header className="shadow-md sm:flex sm:justify-between sm:px-4 sm:py-4 sm:items-center">
     <div className="flex items-center justify-between px-4 py-5 sm:p-0">
-      <div className="flex items-center text-4xl font-bold mx-2">
+      <div className="flex items-center text-4xl font-semibold mx-2">
         <Link href="/">
-          <a>Doogle</a>
+          <a><Logo /></a>
         </Link>
       </div>
       <div className="sm:hidden">

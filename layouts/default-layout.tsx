@@ -8,6 +8,7 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
     <Head>
       <title>Doogle</title>
       <link rel="icon" href="/favicon.ico" />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
     </Head>
     <Navbar />
     <div className="flex flex-col h-screen justify-between">
