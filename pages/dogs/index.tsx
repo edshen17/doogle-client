@@ -32,11 +32,11 @@ const Dogs: NextPage = () => {
       <Autocomplete
         className="w-80 md:w-3/12 py-3"
         disablePortal
-        loading
-        onChange={onChange}
-        options={dogBreeds}
+        loading={ dogBreedsStatus != API_STATUS.SUCCEEDED }
+        onChange={ onChange }
+        options={ dogBreeds }
         getOptionLabel={(option: any) => option }
-        renderInput={(params) => <TextField {...params} autoFocus />}
+        renderInput={(params) => <TextField {...params} />}
       />
     </div>
   </div>

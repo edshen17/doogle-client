@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-const BASE_API_URL = 'https://dog.ceo/api/breeds'
+const BASE_API_URL = 'https://dog.ceo/api'
 
 export enum API_STATUS {
   IDLE = 'idle',
@@ -22,10 +22,10 @@ const initialState: StoreState = {
   error: undefined,
 }
 
-type FetchDataProps = { name: string, endpoint: string }
+type FetchDataProps = { name: string, endpoint?: string }
 
 export const fetchData = (props: FetchDataProps) => {
-  const {name, endpoint} = props;
+  const { name, endpoint } = props;
   return createAsyncThunk(`${name}/fetchData`, async () => {
     try {
       const response = await axios.get(`${BASE_API_URL}${endpoint}`)
@@ -39,17 +39,17 @@ export const fetchData = (props: FetchDataProps) => {
 }
 
 export const createStoreSlice = (props: FetchDataProps & { reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<string[]>) => void }) => {
-  const { name, endpoint, reducers, dataProcessor } = props;
+  const { name, reducers, dataProcessor } = props;
   return createSlice({
     name,
     initialState,
     reducers,
     extraReducers(builder) {
       builder
-      .addCase(fetchData({ name, endpoint }).pending, (state) => {
+      .addCase(fetchData({ name }).pending, (state) => {
           state.status = API_STATUS.LOADING
       })
-      .addCase(fetchData({ name, endpoint }).fulfilled, (state, action) => {
+      .addCase(fetchData({ name }).fulfilled, (state, action) => {
           state.status = API_STATUS.SUCCEEDED
           if (!dataProcessor) {
             state.data = action.payload
@@ -57,7 +57,7 @@ export const createStoreSlice = (props: FetchDataProps & { reducers: any, dataPr
             dataProcessor(state, action);
           }
       })
-      .addCase(fetchData({ name, endpoint }).rejected, (state, action) => {
+      .addCase(fetchData({ name }).rejected, (state, action) => {
           state.status = API_STATUS.FAILED
           state.error = action.error.message
       })
