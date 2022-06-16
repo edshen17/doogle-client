@@ -6,10 +6,14 @@ import { store } from '../store/store'
 import { Provider } from 'react-redux'
 import Navbar from '../components/navbar'
 import Footer from '../components/footer'
+import Head from 'next/head'
 config.autoAddCss = false
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Provider store={store}>
+    <Head>
+      <title>Doogle</title>
+    </Head>
     <div className="flex flex-col h-screen">
       <Navbar />
         <div className="flex-grow">

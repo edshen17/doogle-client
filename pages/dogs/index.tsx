@@ -40,7 +40,7 @@ const Dogs: NextPage = () => {
         onChange={ onChange }
         options={ dogBreeds }
         getOptionLabel={(option: any) => option }
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params: any) => <TextField {...params} />}
       />
     </div>
   </div>

@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <title>Doogle</title>
         <meta name="description" content="Search for dog pictures!" />
         <meta property="og:url" content="https://www.byeindonesia.com/" />
         <meta property="og:type" content="website"/>
