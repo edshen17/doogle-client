@@ -7,6 +7,7 @@ import { API_STATUS } from "../../store/common";
 import { fetchDogBreeds, getAllDogBreeds, getDogBreedsError, getDogBreedsStatus } from "../../store/dog-breeds/dog-breeds-slice";
 import { store } from "../../store/store";
 import { useRouter } from "next/router"
+import { reset } from "../../store/dog-breed-images/dog-breed-images-slice";
 
 
 const Dogs: NextPage = () => {
@@ -17,6 +18,7 @@ const Dogs: NextPage = () => {
   const dogBreedsError = useSelector(getDogBreedsError) // possible future extension: could display something if there was an error
 
   const onChange = (e: SyntheticEvent<Element, Event>, breedName: string) => {
+    store.dispatch(reset())
     router.push(`/dogs/${breedName.toLowerCase()}`)
   }
 
@@ -27,12 +29,12 @@ const Dogs: NextPage = () => {
   }, [dogBreedsStatus, dispatch])
 
   return <div>
-    <div className="flex flex-col items-center justify-center py-32 md:py-64">
+    <div className="flex flex-col items-center justify-center py-20 lg:py-64">
       <div className="mb-6 text-6xl md:text-8xl">
         <Logo />
       </div>
       <Autocomplete
-        className="w-80 md:w-3/12 py-3"
+        className="w-80 md:w-9/12 lg:w-3/12 py-2 md:py-5"
         disablePortal
         loading={ dogBreedsStatus != API_STATUS.SUCCEEDED }
         onChange={ onChange }

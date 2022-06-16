@@ -24,20 +24,20 @@ const Dog: NextPage = () => {
 
   const images = dogBreedImages.map((imgSrc: string, index: number) => {
     return <div className="w-full md:w-1/2 lg:w-4/12 p-4" key={index}>
-      <div className="block relative h-72 rounded overflow-hidden">
+      <div className="aspect-w-3 aspect-h-2 sm:aspect-w-1 sm:aspect-h-1 lg:aspect-w-3 lg:aspect-h-3 shadow-xl">
         <Image
-          className="object-cover object-center w-full h-full block"
+          className="w-full h-full object-center object-cover lg:w-full lg:h-full rounded"
           src={imgSrc}
           alt={`${name}-pic-${index}`}
           blurDataURL={imgSrc}
           placeholder="blur"
           layout="fill"
-        /> 
+        />
       </div>
     </div>
   })
 
-  return <div className="container px-5 py-24 mx-auto">
+  return <div className="container px-5 py-8 lg:py-24 mx-auto">
     <div className="flex flex-wrap -m-4">
       {images}
     </div>

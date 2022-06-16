@@ -35,12 +35,18 @@ export const fetchData = (name: string) => {
   })
 }
 
-export const createStoreSlice = (props: { name: string, reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
-  const { name, reducers, dataProcessor } = props;
+export const createStoreSlice = (props: { name: string, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
+  const { name, dataProcessor } = props;
   return createSlice({
     name,
     initialState,
-    reducers,
+    reducers: {
+      reset: (state: any) => {
+        state.data = []
+        state.status = API_STATUS.IDLE
+        state.error = undefined
+      }
+    },
     extraReducers(builder) {
       builder
       .addCase(fetchData(name).pending, (state) => {
