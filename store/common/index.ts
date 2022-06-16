@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction, ValidateSliceCaseReducers } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 const BASE_API_URL = 'https://dog.ceo/api'
@@ -35,17 +35,22 @@ export const fetchData = (name: string) => {
   })
 }
 
-export const createStoreSlice = (props: { name: string, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
-  const { name, dataProcessor } = props;
+type ReducersTemplate = ValidateSliceCaseReducers<StoreState, {
+  reset: (state: any) => void;
+} & unknown>
+
+export const createStoreSlice = (props: { name: string, reducersTemplate?: ReducersTemplate, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
+  const { name, dataProcessor, reducersTemplate } = props;
   return createSlice({
     name,
     initialState,
     reducers: {
+      ...reducersTemplate,
       reset: (state: any) => {
         state.data = []
         state.status = API_STATUS.IDLE
         state.error = undefined
-      }
+      },
     },
     extraReducers(builder) {
       builder
