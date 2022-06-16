@@ -1,19 +1,11 @@
-import Head from "next/head"
 import React from "react"
 import Footer from "../components/footer"
 import Navbar from "../components/navbar"
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
-  return <div>
-    <Head>
-      <title>Doogle</title>
-      <link rel="icon" href="/favicon.ico" />
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
-    </Head>
+  return <div className="flex flex-col h-screen">
     <Navbar />
-    <div className="flex flex-col h-screen justify-between">
-      <main className="flex-grow">{children}</main>
-    </div>
+    <div className="bg-green-500 flex-grow">{children}</div>
     <Footer />
   </div>
 }

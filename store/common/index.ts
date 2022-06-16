@@ -35,7 +35,7 @@ export const fetchData = (name: string) => {
   })
 }
 
-export const createStoreSlice = (props: { name: string } & { reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
+export const createStoreSlice = (props: { name: string, reducers: any, dataProcessor?: (state: StoreState, action: PayloadAction<any>) => void }) => {
   const { name, reducers, dataProcessor } = props;
   return createSlice({
     name,

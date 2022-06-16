@@ -5,7 +5,9 @@ const moduleData = { name: 'dogBreedImages' }
 
 export const fetchDogBreedImages = fetchData(moduleData.name)
 
-export const dogBreedImagesSlice = createStoreSlice({ ...moduleData, reducers: {} });
+export const dogBreedImagesSlice = createStoreSlice({ ...moduleData, reducers: {
+  // reset
+} })
 
 export const getAllDogBreedImages = (state: RootState) => state.dogBreedImages.data
 export const getDogBreedImagesStatus = (state: RootState) => state.dogBreedImages.status

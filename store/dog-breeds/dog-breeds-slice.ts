@@ -8,9 +8,9 @@ export const fetchDogBreeds = fetchData(moduleData.name)
 export const dogBreedsSlice = createStoreSlice({ ...moduleData, reducers: {}, dataProcessor(state, action) {
   const breedNames = []
   for (const breedName in action.payload) {
-    breedNames.push(`${breedName[0].toUpperCase()}${breedName.slice(1)}`);
+    breedNames.push(`${breedName[0].toUpperCase()}${breedName.slice(1)}`)
   }
-  state.data = breedNames;
+  state.data = breedNames
 } });
 
 export const getAllDogBreeds = (state: RootState) => state.dogBreeds.data

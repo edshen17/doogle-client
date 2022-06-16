@@ -5,6 +5,7 @@ import { fetchDogBreedImages, getAllDogBreedImages, getDogBreedImagesError, getD
 import { useEffect } from "react";
 import { store } from "../../store/store";
 import { API_STATUS } from "../../store/common";
+import Image from "next/image";
 
 const Dog: NextPage = () => {
   const router = useRouter()
@@ -21,8 +22,26 @@ const Dog: NextPage = () => {
     }
   }, [router, dogBreedImagesStatus, dispatch])
 
-  
-  return <h1>{ dogBreedImagesStatus }</h1>
+  const images = dogBreedImages.map((imgSrc: string, index: number) => {
+    return <div className="w-full md:w-1/2 lg:w-4/12 p-4" key={index}>
+      <div className="block relative h-72 rounded overflow-hidden">
+        <Image
+          className="object-cover object-center w-full h-full block"
+          src={imgSrc}
+          alt={`${name}-pic-${index}`}
+          blurDataURL={imgSrc}
+          placeholder="blur"
+          layout="fill"
+        /> 
+      </div>
+    </div>
+  })
+
+  return <div className="container px-5 py-24 mx-auto">
+    <div className="flex flex-wrap -m-4">
+      {images}
+    </div>
+  </div>
 }
 
 export default Dog
